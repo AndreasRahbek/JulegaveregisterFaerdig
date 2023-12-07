@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx2.LogIn">
+   <left>
+      <AnchorPane prefHeight="400.0" prefWidth="239.0" style="-fx-background-color: #201;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="298.0" fitWidth="297.0" layoutX="25.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../img/Gaver.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="54.0" layoutY="27.0" text="Julegave Register" textFill="#f23838">
+               <font>
+                  <Font name="System Italic" size="29.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="400.0" prefWidth="317.0" style="-fx-background-color: #201;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="93.0" fitWidth="59.0" layoutX="108.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../img/ai-cybersecurity-lock.jpg" />
+
+               </image>
+            </ImageView>
+            <Label layoutX="95.0" layoutY="164.0" text="Bruger id" textFill="#f23838">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="96.0" layoutY="231.0" text="Password" textFill="#f23838">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="brugerIdPanel" layoutX="61.0" layoutY="200.0" promptText="Bruger id" />
+            <Button fx:id="loginButton" layoutX="115.0" layoutY="334.0" mnemonicParsing="false" onAction="#userLogin" style="-fx-background-color: #f23838;" text="Login" />
+            <Label fx:id="wrongLogin" layoutX="101.0" layoutY="129.0" textFill="RED" />
+            <PasswordField fx:id="passwordPanel" layoutX="61.0" layoutY="261.0" promptText="Password" />
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>
