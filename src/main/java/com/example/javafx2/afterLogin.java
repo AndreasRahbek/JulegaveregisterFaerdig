@@ -12,7 +12,7 @@ public class afterLogin {
     private Button logUdButton;
 
     public void userLogOut(ActionEvent event) throws IOException{
-        HelloApplication m = new HelloApplication();
-        m.changeScene("hello-view.fxml");
+        Main m = new Main();
+        m.changeScene("StartMenu.fxml");
     }
 }

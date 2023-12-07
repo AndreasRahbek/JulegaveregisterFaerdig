@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class Main extends Application {
 
     private static Stage stg;
 
@@ -16,9 +16,8 @@ public class HelloApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
         stg = primaryStage;
         primaryStage.setResizable(false);
-
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("StartMenu.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
         primaryStage.setTitle("Julegave Register");
         primaryStage.setScene(scene);
         primaryStage.show();

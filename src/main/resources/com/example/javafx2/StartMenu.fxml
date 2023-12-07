@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx2.LogIn">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx2.StartMenuController">
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="239.0" style="-fx-background-color: #201;" BorderPane.alignment="CENTER">
          <children>
@@ -36,7 +36,7 @@
 
                </image>
             </ImageView>
-            <Label layoutX="95.0" layoutY="164.0" text="Bruger id" textFill="#f23838">
+            <Label layoutX="95.0" layoutY="164.0" text="Brugernavn" textFill="#f23838">
                <font>
                   <Font size="20.0" />
                </font>
@@ -46,10 +46,11 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="brugerIdPanel" layoutX="61.0" layoutY="200.0" promptText="Bruger id" />
-            <Button fx:id="loginButton" layoutX="115.0" layoutY="334.0" mnemonicParsing="false" onAction="#userLogin" style="-fx-background-color: #f23838;" text="Login" />
-            <Label fx:id="wrongLogin" layoutX="101.0" layoutY="129.0" textFill="RED" />
+            <TextField fx:id="brugerIdPanel" layoutX="61.0" layoutY="200.0" promptText="Brugernavn" />
+            <Button fx:id="loginButton" layoutX="223.0" layoutY="225.0" mnemonicParsing="false" onAction="#userLogin" style="-fx-background-color: #f23838;" text="Login" />
+            <Label fx:id="wrongLogin" alignment="CENTER" layoutX="101.0" layoutY="129.0" textFill="#f23838" />
             <PasswordField fx:id="passwordPanel" layoutX="61.0" layoutY="261.0" promptText="Password" />
+            <Button layoutX="93.0" layoutY="330.0" mnemonicParsing="false" onAction="#opretBruger" style="-fx-background-color: #f23838;" text="Opret Bruger" />
          </children>
       </AnchorPane>
    </right>

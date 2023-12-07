@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #201;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx2.opretBrugerController">
+   <children>
+      <AnchorPane layoutX="240.0" layoutY="1.0" prefHeight="400.0" prefWidth="317.0" style="-fx-background-color: #201;">
+         <children>
+            <TextField fx:id="brugernavn" layoutX="14.0" layoutY="50.0" promptText="Indtast Brugernavn" />
+            <TextField fx:id="password" layoutX="14.0" layoutY="89.0" promptText="Indtast Password" />
+            <TextField fx:id="fnavn" layoutX="14.0" layoutY="129.0" promptText="Indtast Fornavn" />
+            <TextField fx:id="enavn" layoutX="14.0" layoutY="167.0" promptText="Indtast Efternavn" />
+            <TextField fx:id="mobilNr" layoutX="14.0" layoutY="212.0" promptText="Indtast Mobil nr" />
+            <TextField fx:id="email" layoutX="14.0" layoutY="250.0" promptText="Indtast Email" />
+            <Button fx:id="opretBrugerButton" layoutX="217.0" layoutY="155.0" mnemonicParsing="false" onAction="#opretbruger" text="Opret Bruger" />
+            <Label fx:id="brugerEksistere" alignment="CENTER" layoutX="-99.0" layoutY="318.0" prefHeight="35.0" prefWidth="316.0" textFill="#f23838">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label layoutX="138.0" layoutY="46.0" text="Brugernavn:" textFill="#f23838">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="138.0" layoutY="86.0" text="Password:" textFill="#f23838">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="138.0" layoutY="124.0" text="Fornavn:" textFill="#f23838">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="138.0" layoutY="162.0" text="Efternavn:" textFill="#f23838">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="136.0" layoutY="210.0" text="Mobil nr:" textFill="#f23838">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="136.0" layoutY="248.0" text="Email:" textFill="#f23838">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="goBackButton" layoutX="16.0" layoutY="25.0" mnemonicParsing="false" onAction="#userGoBack" text="Tilbage" />
+   </children>
+</AnchorPane>
