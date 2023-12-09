@@ -33,19 +33,19 @@
             <TextField fx:id="oenskeLink" layoutX="169.0" layoutY="227.0" promptText="Indtast link" />
             <Button fx:id="tilbage" layoutX="56.0" layoutY="57.0" mnemonicParsing="false" onAction="#userGoBack" text="Tilbage" />
             <Button fx:id="tilfoejOenske" layoutX="197.0" layoutY="284.0" mnemonicParsing="false" onAction="#tilfoejOenskeKlik" text="Tilføj ønske" />
-            <Label fx:id="oenskeLabel" alignment="CENTER" layoutX="87.0" layoutY="309.0" prefHeight="35.0" prefWidth="457.0" textFill="#e80a0a">
+            <Label fx:id="oenskeLabel" alignment="CENTER" layoutX="-29.0" layoutY="331.0" prefHeight="35.0" prefWidth="419.0" textFill="#e80a0a">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <TableView fx:id="oenskeListe" layoutX="326.0" layoutY="75.0" onSort="#initialize" prefHeight="257.0" prefWidth="266.0">
+            <TableView fx:id="oenskeListe" layoutX="326.0" layoutY="75.0" prefHeight="257.0" prefWidth="266.0">
               <columns>
                 <TableColumn fx:id="oenskeColumn" prefWidth="97.0" text="Ønske" />
                 <TableColumn fx:id="antalColumn" prefWidth="53.0" text="Antal" />
                   <TableColumn fx:id="linkColumn" prefWidth="115.0" text="Link" />
               </columns>
             </TableView>
-            <Button fx:id="opdaterButton" layoutX="421.0" layoutY="353.0" mnemonicParsing="false" onAction="#initialize" text="Opdater ønskeliste" />
+            <Button fx:id="opdaterButton" layoutX="421.0" layoutY="353.0" mnemonicParsing="false" onAction="#udskrivOenskeliste" text="Opdater ønskeliste" />
          </children>
       </AnchorPane>
    </center>

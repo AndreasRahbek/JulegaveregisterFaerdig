@@ -8,8 +8,45 @@ public class Oenske {
     private boolean oenskeKøbt = false;
 
 
+    public int getOenskeId() {
+        return oenskeId;
+    }
 
+    public void setOenskeId(int oenskeId) {
+        this.oenskeId = oenskeId;
+    }
 
+    public String getOenskeNavn() {
+        return oenskeNavn;
+    }
+
+    public void setOenskeNavn(String oenskeNavn) {
+        this.oenskeNavn = oenskeNavn;
+    }
+
+    public int getOenskeAntal() {
+        return oenskeAntal;
+    }
+
+    public void setOenskeAntal(int oenskeAntal) {
+        this.oenskeAntal = oenskeAntal;
+    }
+
+    public String getOenskeLink() {
+        return oenskeLink;
+    }
+
+    public void setOenskeLink(String oenskeLink) {
+        this.oenskeLink = oenskeLink;
+    }
+
+    public boolean isOenskeKøbt() {
+        return oenskeKøbt;
+    }
+
+    public void setOenskeKøbt(boolean oenskeKøbt) {
+        this.oenskeKøbt = oenskeKøbt;
+    }
 
     public Oenske(int oenskeId, String oenskeNavn, int oenskeAntal, String oenskeLink) {
         this.oenskeId = oenskeId;
@@ -26,45 +63,6 @@ public class Oenske {
     public Oenske() {
     }
 
-    public int getoenskeId() {
-        return oenskeId;
-    }
-
-    public void setoenskeId(int oenskeId) {
-        this.oenskeId = oenskeId;
-    }
-
-    public String getoenskeNavn() {
-        return oenskeNavn;
-    }
-
-    public void setoenskeNavn(String oenskeNavn) {
-        this.oenskeNavn = oenskeNavn;
-    }
-
-    public int getoenskeAntal() {
-        return oenskeAntal;
-    }
-
-    public void setoenskeAntal(int oenskeAntal) {
-        this.oenskeAntal = oenskeAntal;
-    }
-
-    public String getoenskeLink() {
-        return oenskeLink;
-    }
-
-    public void setoenskeLink(String oenskeLink) {
-        this.oenskeLink = oenskeLink;
-    }
-
-    public boolean isoenskeKøbt() {
-        return oenskeKøbt;
-    }
-
-    public void setoenskeKøbt(boolean oenskeKøbt) {
-        this.oenskeKøbt = oenskeKøbt;
-    }
 
     @Override
     public String toString() {

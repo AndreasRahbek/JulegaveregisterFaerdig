@@ -97,9 +97,9 @@ public class DbSql {
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 Oenske oenske = new Oenske();
-                oenske.setoenskeNavn(rs.getString("navn"));
-                oenske.setoenskeAntal(rs.getInt("antal"));
-                oenske.setoenskeLink(rs.getString("link"));
+                oenske.setOenskeNavn(rs.getString("navn"));
+                oenske.setOenskeAntal(rs.getInt("antal"));
+                oenske.setOenskeLink(rs.getString("link"));
                 bruger.tilfoejoenske(oenske);
             }
             statement.close();

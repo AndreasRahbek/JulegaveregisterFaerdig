@@ -1,5 +1,8 @@
 package com.example.javafx2;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -7,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,9 +19,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
+import java.util.Timer;
+
 
 public class seOenskeController implements Initializable{
     DbSql db = new DbSql();
+
     @FXML
     private Button tilfoejOenske;
     @FXML
@@ -35,11 +42,19 @@ public class seOenskeController implements Initializable{
     @FXML
     private TableColumn<Oenske, String> oenskeColumn;
     @FXML
-    private TableColumn<Oenske,String> antalColumn;
+    private TableColumn<Oenske, Integer> antalColumn;
     @FXML
-    private TableColumn <Oenske,String> linkColumn;
+    private TableColumn <Oenske, String> linkColumn;
     @FXML
     private Button opdaterButton;
+
+
+    @Override
+    @FXML
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        udskrivOenskeliste();
+    }
+
 
 
     @FXML
@@ -48,7 +63,12 @@ public class seOenskeController implements Initializable{
         try {
             String sql = "insert into Oenske(brugerlogin,navn,antal,link) values(" + "'" + db.getLogin() + "','" + oenskeNavn + "','" + oenskeAntal + "','" + oenskeLink + "')";
             Statement statement = connection.createStatement();
-            oenskeLabel.setText("Ønske tilfoejet");
+            oenskeLabel.setText("Ønske tilføjet");
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), ev -> {
+                oenskeLabel.setText(" ");
+            }));
+            timeline.play();
+
             statement.execute(sql);
             statement.close();
 
@@ -57,8 +77,12 @@ public class seOenskeController implements Initializable{
         }
     }
 
+
+
+
+
     @FXML
-    private ObservableList<Oenske> udskrivOenskeliste(String brugerLogin) {
+    private ObservableList<Oenske> getOenskeliste(String brugerLogin) {
         Connection connection = db.getConnection();
         ObservableList<Oenske> oensker = FXCollections.observableArrayList();
             try {
@@ -67,9 +91,9 @@ public class seOenskeController implements Initializable{
                 ResultSet rs = statement.executeQuery(sql);
                 while (rs.next()) {
                     Oenske oenske = new Oenske();
-                    oenske.setoenskeNavn(rs.getString("navn"));
-                    oenske.setoenskeAntal(rs.getInt("antal"));
-                    oenske.setoenskeLink(rs.getString("link"));
+                    oenske.setOenskeNavn(rs.getString("navn"));
+                    oenske.setOenskeAntal(rs.getInt("antal"));
+                    oenske.setOenskeLink(rs.getString("link"));
                     oensker.add(oenske);
                 }
                 statement.close();
@@ -78,6 +102,20 @@ public class seOenskeController implements Initializable{
             }
             return oensker;
     }
+
+
+
+
+
+    public void udskrivOenskeliste(){
+        oenskeColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeNavn"));
+        antalColumn.setCellValueFactory(new PropertyValueFactory<Oenske, Integer>("oenskeAntal"));
+        linkColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeLink"));
+        oenskeListe.setItems(getOenskeliste(db.getLogin()));
+    }
+
+
+
     @FXML
     private void tilfoejOenskeKlik(ActionEvent event){
         if (oenskeNavn.getText().isEmpty() || oenskeAntal.getText().isEmpty() || oenskeLink.getText().isEmpty()) {
@@ -87,28 +125,13 @@ public class seOenskeController implements Initializable{
         }
     }
 
-    @FXML
-    private void opdaterOenskeliste(ActionEvent event){
-        udskrivOenskeliste(db.getLogin());
-    }
+
+
 
     @FXML
     private void userGoBack(ActionEvent event) throws IOException {
         Main m = new Main();
-        m.changeScene("StartMenu.fxml");
-    }
-
-    @FXML
-    private void getTableData() {
-    }
-
-    @Override
-    @FXML
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        oenskeColumn.setCellValueFactory(new PropertyValueFactory<>("oenske"));
-        antalColumn.setCellValueFactory(new PropertyValueFactory<>("antal"));
-        linkColumn.setCellValueFactory(new PropertyValueFactory<>("link"));
-        oenskeListe.setItems(udskrivOenskeliste(db.getLogin()));
+        m.changeScene("afterLogin.fxml");
     }
 }
 

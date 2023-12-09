@@ -96,11 +96,11 @@ public class Bruger {
         for(int i = 0; i<oenskeliste.size();i++){
             System.out.println(brugerLogin + "Ønskeliste");
             System.out.print(i+":");
-            System.out.print(oenskeliste.get(i).getoenskeNavn());
+            System.out.print(oenskeliste.get(i).getOenskeNavn());
             System.out.print(", ");
-            System.out.print(oenskeliste.get(i).getoenskeAntal());
+            System.out.print(oenskeliste.get(i).getOenskeAntal());
             System.out.print(", ");
-            System.out.print(oenskeliste.get(i).getoenskeLink());
+            System.out.print(oenskeliste.get(i).getOenskeLink());
 
         }
 
