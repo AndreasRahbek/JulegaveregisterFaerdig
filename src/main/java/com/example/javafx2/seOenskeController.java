@@ -48,18 +48,21 @@ public class seOenskeController implements Initializable{
     private TableColumn <Oenske, String> linkColumn;
     @FXML
     private Button opdaterButton;
+    @FXML
+    private Button andresOenskelister;
+
 
     @Override
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Runnable initializeRunnable = new Runnable() {
             public void run() {
-               udskrivOenskeliste();
+                udskrivOenskeliste();
             }
         };
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        executor.scheduleAtFixedRate(initializeRunnable, 0, 1, TimeUnit.SECONDS);udskrivOenskeliste();
+        executor.scheduleAtFixedRate(initializeRunnable, 0, 1, TimeUnit.SECONDS);
     }
 
 
@@ -70,7 +73,7 @@ public class seOenskeController implements Initializable{
             String sql = "insert into Oenske(brugerlogin,navn,antal,link) values(" + "'" + db.getLogin() + "','" + oenskeNavn + "','" + oenskeAntal + "','" + oenskeLink + "')";
             Statement statement = connection.createStatement();
             oenskeLabel.setText("Ønske tilføjet");
-            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), ev -> {
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> {
                 oenskeLabel.setText(" ");
             }));
             timeline.play();
@@ -113,7 +116,6 @@ public class seOenskeController implements Initializable{
         linkColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeLink"));
         oenskeListe.setItems(getOenskeliste(db.getLogin()));
     }
-
 
     @FXML
     private void tilfoejOenskeKlik(ActionEvent event){

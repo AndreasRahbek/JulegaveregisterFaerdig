@@ -12,6 +12,8 @@ public class afterLoginController {
     private Button logUdButton;
     @FXML
     private Button seOenskeliste;
+    @FXML
+    private Button andreOenskeLister;
 
 
 
@@ -22,5 +24,10 @@ public class afterLoginController {
     public void seOenskeliste(ActionEvent event) throws IOException {
         Main m = new Main();
         m.changeScene("seOenskeListe.fxml");
+    }
+    @FXML
+    private void andreOenskeListerButton(ActionEvent event) throws IOException {
+        Main m = new Main();
+        m.changeScene("seAndresOenskeliste.fxml");
     }
 }

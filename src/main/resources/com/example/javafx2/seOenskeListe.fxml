@@ -13,39 +13,41 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="oenskeNavn" layoutX="169.0" layoutY="127.0" promptText="Indtast ønskenavn" />
-            <Label alignment="CENTER" layoutX="40.0" layoutY="124.0" text="Ønske navn:" textFill="#f23838">
+            <TextField fx:id="oenskeNavn" layoutX="151.0" layoutY="128.0" promptText="Indtast ønskenavn" />
+            <Label alignment="CENTER" layoutX="22.0" layoutY="125.0" text="Ønske navn:" textFill="#f23838">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="94.0" layoutY="173.0" text="Antal:" textFill="#f23838">
+            <Label layoutX="76.0" layoutY="174.0" text="Antal:" textFill="#f23838">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="oenskeAntal" layoutX="169.0" layoutY="175.0" promptText="Indtast antal" />
-            <Label layoutX="73.0" layoutY="224.0" text="Evt. Link:" textFill="#f23838">
+            <TextField fx:id="oenskeAntal" layoutX="151.0" layoutY="176.0" promptText="Indtast antal" />
+            <Label layoutX="55.0" layoutY="225.0" text="Evt. Link:" textFill="#f23838">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="oenskeLink" layoutX="169.0" layoutY="227.0" promptText="Indtast link" />
+            <TextField fx:id="oenskeLink" layoutX="151.0" layoutY="228.0" promptText="Indtast link" />
             <Button fx:id="tilbage" layoutX="56.0" layoutY="57.0" mnemonicParsing="false" onAction="#userGoBack" text="Tilbage" />
-            <Button fx:id="tilfoejOenske" layoutX="197.0" layoutY="284.0" mnemonicParsing="false" onAction="#tilfoejOenskeKlik" text="Tilføj ønske" />
+            <Button fx:id="tilfoejOenske" layoutX="179.0" layoutY="285.0" mnemonicParsing="false" onAction="#tilfoejOenskeKlik" text="Tilføj ønske" />
             <Label fx:id="oenskeLabel" alignment="CENTER" layoutX="-29.0" layoutY="331.0" prefHeight="35.0" prefWidth="419.0" textFill="#e80a0a">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <TableView fx:id="oenskeListe" layoutX="326.0" layoutY="75.0" prefHeight="257.0" prefWidth="266.0">
+            <TableView fx:id="oenskeListe" layoutX="304.0" layoutY="76.0" prefHeight="257.0" prefWidth="292.0">
               <columns>
-                <TableColumn fx:id="oenskeColumn" prefWidth="97.0" text="Ønske" />
-                <TableColumn fx:id="antalColumn" prefWidth="53.0" text="Antal" />
-                  <TableColumn fx:id="linkColumn" prefWidth="115.0" text="Link" />
+                <TableColumn fx:id="oenskeColumn" editable="false" prefWidth="97.0" text="Ønske" />
+                <TableColumn fx:id="antalColumn" editable="false" prefWidth="53.0" text="Antal" />
+                  <TableColumn fx:id="linkColumn" editable="false" prefWidth="126.0" text="Link" />
               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
-            <Button fx:id="opdaterButton" layoutX="421.0" layoutY="353.0" mnemonicParsing="false" onAction="#udskrivOenskeliste" text="Opdater ønskeliste" />
          </children>
       </AnchorPane>
    </center>

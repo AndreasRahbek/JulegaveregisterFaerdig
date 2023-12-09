@@ -5,7 +5,9 @@ public class Oenske {
     private String oenskeNavn;
     private int oenskeAntal;
     private String oenskeLink;
-    private boolean oenskeKøbt = false;
+    private boolean oenskeKoebt = false;
+    private String oenskeKoebtAf;
+
 
 
     public int getOenskeId() {
@@ -41,11 +43,11 @@ public class Oenske {
     }
 
     public boolean isOenskeKøbt() {
-        return oenskeKøbt;
+        return oenskeKoebt;
     }
 
     public void setOenskeKøbt(boolean oenskeKøbt) {
-        this.oenskeKøbt = oenskeKøbt;
+        this.oenskeKoebt = oenskeKøbt;
     }
 
     public Oenske(int oenskeId, String oenskeNavn, int oenskeAntal, String oenskeLink) {
