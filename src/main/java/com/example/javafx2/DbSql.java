@@ -6,8 +6,8 @@ import java.util.Objects;
 public class DbSql {
     private Connection connection;
     private Statement statement;
-    private String login;
-    private String password;
+    private static String login;
+    private static String password;
 
 
     DbSql() {

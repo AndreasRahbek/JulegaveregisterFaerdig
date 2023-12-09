@@ -11,23 +11,23 @@ import java.sql.*;
 
 public class opretBrugerController {
     @FXML
-    TextField brugernavn;
+    private TextField brugernavn;
     @FXML
-    TextField password;
+    private TextField password;
     @FXML
-    TextField fnavn;
+    private TextField fnavn;
     @FXML
-    TextField enavn;
+    private  TextField enavn;
     @FXML
-    TextField mobilNr;
+    private TextField mobilNr;
     @FXML
-    TextField email;
+    private TextField email;
     @FXML
-    Button opretBrugerButton;
+    private Button opretBrugerButton;
     @FXML
-    Button goBackButton;
+    private Button goBackButton;
     @FXML
-    Label brugerEksistere;
+    private Label brugerEksistere;
 
     public opretBrugerController() {
     }

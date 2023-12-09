@@ -6,13 +6,21 @@ import javafx.scene.control.Button;
 
 import java.io.IOException;
 
-public class afterLogin {
+public class afterLoginController {
 
     @FXML
     private Button logUdButton;
+    @FXML
+    private Button seOenskeliste;
+
+
 
     public void userLogOut(ActionEvent event) throws IOException{
         Main m = new Main();
         m.changeScene("StartMenu.fxml");
+    }
+    public void seOenskeliste(ActionEvent event) throws IOException {
+        Main m = new Main();
+        m.changeScene("seOenskeListe.fxml");
     }
 }

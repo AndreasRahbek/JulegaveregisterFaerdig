@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #201;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx2.afterLogin">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #201;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx2.afterLoginController">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="268.0" fitWidth="357.0" layoutX="122.0" layoutY="14.0">
-               <image>
-                  <Image url="@../../../../../img/Gaver.jpg" />
-               </image>
-            </ImageView>
             <Button fx:id="logUdButton" layoutX="246.0" layoutY="317.0" mnemonicParsing="false" onAction="#userLogOut" prefHeight="48.0" prefWidth="107.0" style="-fx-background-color: #f23838;" text="Log Ud" />
+            <Button fx:id="seOenskeliste" layoutX="246.0" layoutY="188.0" mnemonicParsing="false" onAction="#seOenskeliste" text="Se egen ønskeliste" />
          </children>
       </AnchorPane>
    </center>
