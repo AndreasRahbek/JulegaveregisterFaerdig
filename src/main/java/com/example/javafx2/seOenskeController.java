@@ -1,6 +1,5 @@
 package com.example.javafx2;
 
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -19,7 +18,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
-import java.util.Timer;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 public class seOenskeController implements Initializable{
@@ -48,13 +49,18 @@ public class seOenskeController implements Initializable{
     @FXML
     private Button opdaterButton;
 
-
     @Override
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        udskrivOenskeliste();
-    }
+        Runnable initializeRunnable = new Runnable() {
+            public void run() {
+               udskrivOenskeliste();
+            }
+        };
 
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        executor.scheduleAtFixedRate(initializeRunnable, 0, 1, TimeUnit.SECONDS);udskrivOenskeliste();
+    }
 
 
     @FXML
@@ -76,9 +82,6 @@ public class seOenskeController implements Initializable{
             throwables.printStackTrace();
         }
     }
-
-
-
 
 
     @FXML
@@ -104,16 +107,12 @@ public class seOenskeController implements Initializable{
     }
 
 
-
-
-
     public void udskrivOenskeliste(){
         oenskeColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeNavn"));
         antalColumn.setCellValueFactory(new PropertyValueFactory<Oenske, Integer>("oenskeAntal"));
         linkColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeLink"));
         oenskeListe.setItems(getOenskeliste(db.getLogin()));
     }
-
 
 
     @FXML
@@ -124,8 +123,6 @@ public class seOenskeController implements Initializable{
             TilfoejOenske(oenskeNavn.getText(),oenskeAntal.getText(),oenskeLink.getText());
         }
     }
-
-
 
 
     @FXML
