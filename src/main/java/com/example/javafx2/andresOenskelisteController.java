@@ -86,10 +86,11 @@ public class andresOenskelisteController implements Initializable {
                     oenske.setOenskeAntal(rs.getInt("antal"));
                     oenske.setOenskeLink(rs.getString("link"));
                     oenske.setOenskeKoebt(new CheckBox("Købt"));
+                    oenske.setOenskeKoebtAf("");
                     if (Objects.equals(oenske.getOenskeDeltMed(), db.getLogin())) {
                         oensker.add(oenske);
                     }
-                    oenske.setOenskeKoebtAf("");
+
                 }
             }
             statement.close();
