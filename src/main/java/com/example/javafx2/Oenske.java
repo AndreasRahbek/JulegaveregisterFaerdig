@@ -7,8 +7,31 @@ public class Oenske {
     private String oenskeLink;
     private boolean oenskeKoebt = false;
     private String oenskeKoebtAf;
+    private String oenskeDeltMed;
 
+    public boolean isOenskeKoebt() {
+        return oenskeKoebt;
+    }
 
+    public void setOenskeKoebt(boolean oenskeKoebt) {
+        this.oenskeKoebt = oenskeKoebt;
+    }
+
+    public String getOenskeKoebtAf() {
+        return oenskeKoebtAf;
+    }
+
+    public void setOenskeKoebtAf(String oenskeKoebtAf) {
+        this.oenskeKoebtAf = oenskeKoebtAf;
+    }
+
+    public String getOenskeDeltMed() {
+        return oenskeDeltMed;
+    }
+
+    public void setOenskeDeltMed(String oenskeDeltMed) {
+        this.oenskeDeltMed = oenskeDeltMed;
+    }
 
     public int getOenskeId() {
         return oenskeId;

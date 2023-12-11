@@ -1,5 +1,7 @@
 package com.example.javafx2;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,6 +18,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -39,7 +43,7 @@ public class andresOenskelisteController implements Initializable {
     @FXML
     private TableColumn <Oenske, String> koebtAfColumn;
 
-    //12-9-2023
+
 
 
 
@@ -84,6 +88,21 @@ public class andresOenskelisteController implements Initializable {
         andreOenskeListe.setItems(getOenskeliste(db.getLogin()));
     }
 
+
+
+
+
+
+
+
+
+        public void seAndresOenskelister(){
+       /* "SELECT OenskeDeltMed.oenskeEjer,OenskeDeltMed.oenskeId,OenskeDeltMed.deltMedBruger,Oenske.navn,oenske.antal,oenske.link,oenske.købt
+        from OenskeDeltMed
+        INNER JOIN Oenske on OenskeDeltMed.oenskeId = Oenske.oenskeId""
+
+        */
+    }
 
 
 
