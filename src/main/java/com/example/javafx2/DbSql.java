@@ -14,7 +14,7 @@ public class DbSql {
         connection = null;
         statement = null;
         try {
-            String url = "jdbc:sqlite:C:\\Users\\andre\\Desktop\\Database\\JuleregisterDatabase.db";
+            String url = "jdbc:sqlite:\\C:\\Users\\Andreas\\Documents\\1. semester\\Databaser\\JuleregisterDatabase.db\\";
             connection = DriverManager.getConnection(url);
 
         } catch (

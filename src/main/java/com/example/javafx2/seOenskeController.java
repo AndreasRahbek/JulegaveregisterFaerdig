@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -134,31 +135,33 @@ public class seOenskeController implements Initializable{
     public void delOenskeliste() {
         if(delOenskeListeTextField.getText().isEmpty()){
             oenskeLabel.setText("Indtast et brugernavn du vil dele med!");
-        }
-        Connection connection = db.getConnection();
-        ArrayList oenskeIdListe = new ArrayList();
-        try {
-            String sql ="SELECT Oenske.brugerlogin,Oenske.oenskeId from Oenske WHERE Oenske.brugerlogin = '" + db.getLogin() +"'";
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                int oenskeId = rs.getInt("oenskeId");
-                oenskeIdListe.add(oenskeId);
-            }
-            statement.execute(sql);
-            statement.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        for(int i = 0; i<oenskeIdListe.size();i++){
-            try{
-                String sql = "INSERT into oenskeDeltMed(oenskeEjer,oenskeId,deltMedBruger) VALUES(" + "'" + db.getLogin() +"'," + oenskeIdListe.get(i) + ",'" + delOenskeListeTextField.getText() + "')";
-                Statement statement = connection.createStatement();
-                statement.execute(sql);
-                statement.close();
+        }else if (Objects.equals(delOenskeListeTextField.getText(), db.getLogin())){
+            oenskeLabel.setText("Du kan ikke dele med dig selv!");
+        } else {
+            Connection connection = db.getConnection();
+            ArrayList oenskeIdListe = new ArrayList();
+            try {
+                String sql ="SELECT Oenske.brugerlogin,Oenske.oenskeId from Oenske WHERE Oenske.brugerlogin = '" + db.getLogin() +"'";
+                 Statement statement = connection.createStatement();
+                 ResultSet rs = statement.executeQuery(sql);
+                 while (rs.next()) {
+                     int oenskeId = rs.getInt("oenskeId");
+                     oenskeIdListe.add(oenskeId);
+                 }
+                 statement.execute(sql);
+                 statement.close();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+            }
+            for(int i = 0; i<oenskeIdListe.size();i++) {
+                try {
+                    String sql = "INSERT into oenskeDeltMed(oenskeEjer,oenskeId,deltMedBruger) VALUES(" + "'" + db.getLogin() + "'," + oenskeIdListe.get(i) + ",'" + delOenskeListeTextField.getText() + "')";
+                    Statement statement = connection.createStatement();
+                    statement.execute(sql);
+                    statement.close();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             }
         }
     }

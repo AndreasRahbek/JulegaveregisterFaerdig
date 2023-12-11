@@ -2,6 +2,9 @@ package com.example.javafx2;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.Property;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,6 +22,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -37,74 +41,70 @@ public class andresOenskelisteController implements Initializable {
     @FXML
     private TableColumn<Oenske, Integer> antalColumn;
     @FXML
-    private TableColumn <Oenske, String> linkColumn;
+    private TableColumn<Oenske, String> linkColumn;
     @FXML
-    private TableColumn <Oenske, Boolean> koebtColumn;
+    private TableColumn<Oenske, CheckBox> koebtColumn;
     @FXML
-    private TableColumn <Oenske, String> koebtAfColumn;
-
-
-
+    private TableColumn<Oenske, String> koebtAfColumn;
+    @FXML
+    private Button tilbageButton;
 
 
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Runnable initializeRunnable = new Runnable() {
-            public void run() {
-                udskrivOenskeliste();
-            }
-        };
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        executor.scheduleAtFixedRate(initializeRunnable, 0, 1, TimeUnit.SECONDS);
+        udskrivOenskeliste();
     }
 
+
+
+    public void udskrivOenskeliste() {
+        modtagerColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeEjer"));
+        oenskeColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeNavn"));
+        antalColumn.setCellValueFactory(new PropertyValueFactory<Oenske, Integer>("oenskeAntal"));
+        linkColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeLink"));
+        koebtColumn.setCellValueFactory(new PropertyValueFactory<Oenske,CheckBox>("oenskeKoebt"));
+        koebtAfColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeKoebtAf"));
+        andreOenskeListe.setItems(seAndresOenskelister());
+    }
+
+
     @FXML
-    private ObservableList<Oenske> getOenskeliste(String brugerLogin) {
+    public ObservableList<Oenske> seAndresOenskelister() {
         Connection connection = db.getConnection();
         ObservableList<Oenske> oensker = FXCollections.observableArrayList();
         try {
-            String sql = "SELECT Oenske.navn, Oenske.antal, Oenske.link from Oenske where brugerlogin ='" + brugerLogin + "';";
+            String sql = "SELECT OenskeDeltMed.oenskeEjer,OenskeDeltMed.oenskeId,OenskeDeltMed.deltMedBruger,Oenske.navn,oenske.antal,oenske.link,oenske.købt,oenske.købtAf from OenskeDeltMed INNER JOIN Oenske on OenskeDeltMed.oenskeId = Oenske.oenskeId";
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                Oenske oenske = new Oenske();
-                oenske.setOenskeNavn(rs.getString("navn"));
-                oenske.setOenskeAntal(rs.getInt("antal"));
-                oenske.setOenskeLink(rs.getString("link"));
-                oensker.add(oenske);
+                {
+                    Oenske oenske = new Oenske();
+                    oenske.setOenskeEjer(rs.getString("oenskeEjer"));
+                    oenske.setOenskeId(rs.getInt("oenskeId"));
+                    oenske.setOenskeDeltMed(rs.getString("deltMedBruger"));
+                    oenske.setOenskeNavn(rs.getString("navn"));
+                    oenske.setOenskeAntal(rs.getInt("antal"));
+                    oenske.setOenskeLink(rs.getString("link"));
+                    oenske.setOenskeKoebt(new CheckBox("Købt"));
+                    if (Objects.equals(oenske.getOenskeDeltMed(), db.getLogin())) {
+                        oensker.add(oenske);
+                    }
+                    oenske.setOenskeKoebtAf("");
+                }
             }
             statement.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return oensker;
+         return oensker;
     }
 
 
-    public void udskrivOenskeliste(){
-        oenskeColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeNavn"));
-        antalColumn.setCellValueFactory(new PropertyValueFactory<Oenske, Integer>("oenskeAntal"));
-        linkColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeLink"));
-        andreOenskeListe.setItems(getOenskeliste(db.getLogin()));
+    @FXML
+    private void brugerTilbage(ActionEvent event) throws IOException {
+        Main m = new Main();
+        m.changeScene("afterLogin.fxml");
     }
-
-
-
-
-
-
-
-
-
-        public void seAndresOenskelister(){
-       /* "SELECT OenskeDeltMed.oenskeEjer,OenskeDeltMed.oenskeId,OenskeDeltMed.deltMedBruger,Oenske.navn,oenske.antal,oenske.link,oenske.købt
-        from OenskeDeltMed
-        INNER JOIN Oenske on OenskeDeltMed.oenskeId = Oenske.oenskeId""
-
-        */
-    }
-
 
 
 }
-

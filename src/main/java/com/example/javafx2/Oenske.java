@@ -1,20 +1,31 @@
 package com.example.javafx2;
 
+import javafx.scene.control.CheckBox;
+
 public class Oenske {
     private int oenskeId;
+    private String oenskeEjer;
     private String oenskeNavn;
     private int oenskeAntal;
     private String oenskeLink;
-    private boolean oenskeKoebt = false;
+    private CheckBox oenskeKoebt;
     private String oenskeKoebtAf;
     private String oenskeDeltMed;
 
-    public boolean isOenskeKoebt() {
+    public CheckBox getOenskeKoebt() {
         return oenskeKoebt;
     }
 
-    public void setOenskeKoebt(boolean oenskeKoebt) {
+    public void setOenskeKoebt(CheckBox oenskeKoebt) {
         this.oenskeKoebt = oenskeKoebt;
+    }
+
+    public String getOenskeEjer() {
+        return oenskeEjer;
+    }
+
+    public void setOenskeEjer(String oenskeEjer) {
+        this.oenskeEjer = oenskeEjer;
     }
 
     public String getOenskeKoebtAf() {
@@ -63,14 +74,6 @@ public class Oenske {
 
     public void setOenskeLink(String oenskeLink) {
         this.oenskeLink = oenskeLink;
-    }
-
-    public boolean isOenskeKøbt() {
-        return oenskeKoebt;
-    }
-
-    public void setOenskeKøbt(boolean oenskeKøbt) {
-        this.oenskeKoebt = oenskeKøbt;
     }
 
     public Oenske(int oenskeId, String oenskeNavn, int oenskeAntal, String oenskeLink) {
