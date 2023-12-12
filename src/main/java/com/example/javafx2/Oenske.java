@@ -1,5 +1,8 @@
 package com.example.javafx2;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 
 public class Oenske {
@@ -8,15 +11,26 @@ public class Oenske {
     private String oenskeNavn;
     private int oenskeAntal;
     private String oenskeLink;
-    private CheckBox oenskeKoebt;
+    private Button oenskeKoebtButton;
+    private String oenskeKoebt = "Nej";
+
     private String oenskeKoebtAf;
     private String oenskeDeltMed;
 
-    public CheckBox getOenskeKoebt() {
+
+    public Button getOenskeKoebtButton() {
+        return oenskeKoebtButton;
+    }
+
+    public void setOenskeKoebtButton(Button oenskeKoebtButton) {
+        this.oenskeKoebtButton = oenskeKoebtButton;
+    }
+
+    public String getOenskeKoebt() {
         return oenskeKoebt;
     }
 
-    public void setOenskeKoebt(CheckBox oenskeKoebt) {
+    public void setOenskeKoebt(String oenskeKoebt) {
         this.oenskeKoebt = oenskeKoebt;
     }
 

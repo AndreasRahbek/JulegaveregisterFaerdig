@@ -52,9 +52,11 @@ public class seOenskeController implements Initializable{
     private TextField delOenskeListeTextField;
     @FXML
     private Button delButton;
+    @FXML
+    private Button fjernButton;
+    @FXML
+    private TextField oenskeNavnTextFeild;
 
-
-    //11-12-2023 03:43
 
     @Override
     @FXML
@@ -71,101 +73,55 @@ public class seOenskeController implements Initializable{
 
 
     @FXML
-    private void TilfoejOenske(String oenskeNavn, String oenskeAntal, String oenskeLink){
-        Connection connection = db.getConnection();
-        try {
-            String sql = "insert into Oenske(brugerlogin,navn,antal,link) values(" + "'" + db.getLogin() + "','" + oenskeNavn + "','" + oenskeAntal + "','" + oenskeLink + "')";
-            Statement statement = connection.createStatement();
+    private void udskrivOenskeliste(){
+
+        oenskeColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeNavn"));
+        antalColumn.setCellValueFactory(new PropertyValueFactory<Oenske, Integer>("oenskeAntal"));
+        linkColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeLink"));
+        oenskeListe.setItems(db.getOenskeliste());
+
+
+    }
+
+    @FXML
+    private void tilfoejOenskeKlik(ActionEvent e) throws SQLException {
+        if (oenskeNavn.getText().isEmpty() || oenskeAntal.getText().isEmpty() || oenskeLink.getText().isEmpty()) {
+            oenskeLabel.setText("Udfyld alle felter");
+        } else {
+            db.opretOenske(oenskeNavn.getText(), Integer.parseInt(oenskeAntal.getText()), oenskeLink.getText());
             oenskeLabel.setText("Ønske tilføjet");
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> {
                 oenskeLabel.setText(" ");
             }));
             timeline.play();
-
-            statement.execute(sql);
-            statement.close();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
     }
 
-
     @FXML
-    private ObservableList<Oenske> getOenskeliste(String brugerLogin) {
-        Connection connection = db.getConnection();
-        ObservableList<Oenske> oensker = FXCollections.observableArrayList();
-            try {
-                String sql = "SELECT Oenske.navn, Oenske.antal, Oenske.link from Oenske where brugerlogin ='" + brugerLogin + "';";
-                Statement statement = connection.createStatement();
-                ResultSet rs = statement.executeQuery(sql);
-                while (rs.next()) {
-                    Oenske oenske = new Oenske();
-                    oenske.setOenskeNavn(rs.getString("navn"));
-                    oenske.setOenskeAntal(rs.getInt("antal"));
-                    oenske.setOenskeLink(rs.getString("link"));
-                    oensker.add(oenske);
-                }
-                statement.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-            return oensker;
-    }
-
-
-    public void udskrivOenskeliste(){
-        oenskeColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeNavn"));
-        antalColumn.setCellValueFactory(new PropertyValueFactory<Oenske, Integer>("oenskeAntal"));
-        linkColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeLink"));
-        oenskeListe.setItems(getOenskeliste(db.getLogin()));
-    }
-
-    @FXML
-    private void tilfoejOenskeKlik(ActionEvent event){
-        if (oenskeNavn.getText().isEmpty() || oenskeAntal.getText().isEmpty() || oenskeLink.getText().isEmpty()) {
-            oenskeLabel.setText("Udfyld alle felter");
+    private void fjernOenskeKlik(ActionEvent e){
+        if (oenskeNavnTextFeild.getText().isEmpty()) {
+            oenskeLabel.setText("Udfyld feltet for at fjerne et ønske!");
         } else {
-            TilfoejOenske(oenskeNavn.getText(),oenskeAntal.getText(),oenskeLink.getText());
+         db.fjernOenske(oenskeNavnTextFeild.getText());
+            oenskeLabel.setText("Ønske fjernet");
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> {
+                oenskeLabel.setText(" ");
+            }));
+            timeline.play();
         }
+
     }
 
-
     @FXML
-    public void delOenskeliste() {
-        if(delOenskeListeTextField.getText().isEmpty()){
+    private void delOenskeliste(ActionEvent event) {
+        if (delOenskeListeTextField.getText().isEmpty()) {
             oenskeLabel.setText("Indtast et brugernavn du vil dele med!");
-        }else if (Objects.equals(delOenskeListeTextField.getText(), db.getLogin())){
+        } else if (Objects.equals(delOenskeListeTextField.getText(), db.getLogin())) {
             oenskeLabel.setText("Du kan ikke dele med dig selv!");
         } else {
-            Connection connection = db.getConnection();
-            ArrayList oenskeIdListe = new ArrayList();
-            try {
-                String sql ="SELECT Oenske.brugerlogin,Oenske.oenskeId from Oenske WHERE Oenske.brugerlogin = '" + db.getLogin() +"'";
-                 Statement statement = connection.createStatement();
-                 ResultSet rs = statement.executeQuery(sql);
-                 while (rs.next()) {
-                     int oenskeId = rs.getInt("oenskeId");
-                     oenskeIdListe.add(oenskeId);
-                 }
-                 statement.execute(sql);
-                 statement.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-            for(int i = 0; i<oenskeIdListe.size();i++) {
-                try {
-                    String sql = "INSERT into oenskeDeltMed(oenskeEjer,oenskeId,deltMedBruger) VALUES(" + "'" + db.getLogin() + "'," + oenskeIdListe.get(i) + ",'" + delOenskeListeTextField.getText() + "')";
-                    Statement statement = connection.createStatement();
-                    statement.execute(sql);
-                    statement.close();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
+            db.delOenskeListe(delOenskeListeTextField.getText());
         }
     }
-
 
     @FXML
     private void brugerTilbage(ActionEvent event) throws IOException {

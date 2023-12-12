@@ -36,36 +36,14 @@ public class StartMenuController {
         m.changeScene("opretBruger.fxml");
     }
 
-    public void userLogin(ActionEvent event) throws IOException {
-        checkLogin(brugerIdPanel.getText(), passwordPanel.getText());
-    }
-
-    private void checkLogin(String brugerLogin, String brugerpassword) throws IOException {
+    public void userLogin(ActionEvent event) throws IOException, SQLException {
         Main m = new Main();
         if (brugerIdPanel.getText().isEmpty() && passwordPanel.getText().isEmpty()) {
             wrongLogin.setText("Indtast dit BrugerId og Password ");
         } else {
-            try {
-                String sql = "SELECT brugerlogin, password" + " from Bruger" + " WHERE brugerlogin =" + " '" + brugerLogin + "'";
-                Statement statement = db.getConnection().createStatement();
-                ResultSet rs = statement.executeQuery(sql);
-                if (rs.next()) {
-                    if (Objects.equals(rs.getString("brugerlogin"), brugerLogin) && (Objects.equals(rs.getString("password"), brugerpassword))) {
-                        System.out.println("login succesful");
-                        db.setLogin(brugerLogin);
-                        db.setPassword(brugerpassword);
-                        m.changeScene("afterLogin.fxml");
-                    } else {
-                        wrongLogin.setText("Forkert login ");
-                        System.out.println("Wrong login");
-                    }
-                    statement.execute(sql);
-                    statement.close();
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-
-            }
+            if(db.checkLogin(brugerIdPanel.getText(),passwordPanel.getText())){
+                m.changeScene("afterLogin.fxml");
+            } else wrongLogin.setText("Forkert login");
         }
     }
 }

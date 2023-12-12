@@ -1,6 +1,16 @@
 package com.example.javafx2;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+import javafx.util.Duration;
+
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class DbSql {
@@ -14,7 +24,7 @@ public class DbSql {
         connection = null;
         statement = null;
         try {
-            String url = "jdbc:sqlite:\\C:\\Users\\Andreas\\Documents\\1. semester\\Databaser\\JuleregisterDatabase.db\\";
+            String url = "jdbc:sqlite:\\C:\\Users\\Andreas\\Documents\\1. semester\\Databaser\\DB\\JuleregisterDatabase.db";
             connection = DriverManager.getConnection(url);
 
         } catch (
@@ -23,52 +33,62 @@ public class DbSql {
         }
     }
 
-    public void opretBruger(String brugerlogin, String password, String fnavn, String enavn, String mobil, String email) {
+    public String opretBruger(String brugerlogin, String password, String fnavn, String enavn, String mobil, String email) {
+        String string = "Brugernavn eksistere allerede";
         try {
             String sql = "insert into Bruger(brugerlogin,password,fNavn,enavn,mobil,email) values(" + "'" + brugerlogin + "','" + password + "','" + fnavn + "','" + enavn + "','" + mobil + "','" + email + "')";
             Statement statement = connection.createStatement();
             statement.execute(sql);
             statement.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return string = "Brugernavn eksistere allerede";
+        }
+        return string = "";
+    }
 
+
+    public ObservableList<Oenske> seAndresOenskelister() {
+        ObservableList<Oenske> oensker = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT OenskeDeltMed.oenskeEjer,OenskeDeltMed.oenskeId,OenskeDeltMed.deltMedBruger,Oenske.navn,oenske.antal,oenske.link,oenske.købt,oenske.købtAf from OenskeDeltMed INNER JOIN Oenske on OenskeDeltMed.oenskeId = Oenske.oenskeId";
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                {
+                    Oenske oenske = new Oenske();
+                    oenske.setOenskeEjer(rs.getString("oenskeEjer"));
+                    oenske.setOenskeId(rs.getInt("oenskeId"));
+                    oenske.setOenskeDeltMed(rs.getString("deltMedBruger"));
+                    oenske.setOenskeNavn(rs.getString("navn"));
+                    oenske.setOenskeAntal(rs.getInt("antal"));
+                    oenske.setOenskeLink(rs.getString("link"));
+                    oenske.setOenskeKoebtButton(new Button("Købt"));
+                    oenske.getOenskeKoebtButton().setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent actionEvent) {
+                            oenske.setOenskeKoebtAf(login);
+                            oenskeKoebtAf(login,oenske.getOenskeId());
+                        }
+                    });
+                    oenske.setOenskeKoebtAf(rs.getString("købtAf"));
+
+                    if (Objects.equals(oenske.getOenskeDeltMed(), login)) {
+                        oensker.add(oenske);
+                    }
+
+                }
+            }
+            statement.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return oensker;
     }
-
-    public Bruger getBruger(String brugerLogin){
-        Bruger bruger = new Bruger();
+    public void oenskeKoebtAf(String brugerLogin, int oenskeId){
         try {
-            String sql = "SELECT * from Bruger where brugerlogin = '" + brugerLogin +"';";
+            String sql = "Update Oenske Set købtAf =" +"'" + brugerLogin + "'" + ", købt= 'Ja'"  + " WHERE oenskeId =" + oenskeId +";";
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
-            if(rs.next()) {
-                bruger.setBrugerLogin(rs.getString("brugerlogin"));
-                bruger.setPassword(rs.getString("password"));
-                bruger.setfNavn(rs.getString("fnavn"));
-                bruger.seteNavn(rs.getString("enavn"));
-                bruger.setMobil(rs.getString("mobil"));
-                bruger.setEmail(rs.getString("email"));
-                statement.close();
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return bruger;
-    }
-
-    public void login(String brugerLogin, String brugerpassword) {
-        try {
-            String sql = "SELECT brugerlogin, password" + " from Bruger" + " WHERE brugerlogin =" + " '" + brugerLogin + "'";
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
-            if (Objects.equals(rs.getString("brugerlogin"), brugerLogin) && (Objects.equals(rs.getString("password"), brugerpassword))) {
-                System.out.println("login succesful");
-                this.login = brugerLogin;
-                this.password = brugerpassword;
-            } else {
-                System.out.println("Username or password incorrect");
-            }
             statement.execute(sql);
             statement.close();
 
@@ -77,9 +97,11 @@ public class DbSql {
         }
     }
 
-    public void opretOenske(String oenskeNavn, int oenskeAntal, String oenskeLink) {
+    public void opretOenske(String oenskeNavn, int oenskeAntal, String oenskeLink) throws SQLException {
+        String url = "jdbc:sqlite:\\C:\\Users\\Andreas\\Documents\\1. semester\\Databaser\\DB\\JuleregisterDatabase.db";
+        connection = DriverManager.getConnection(url);
         try {
-            String sql = "insert into Oenske(brugerlogin,navn,antal,link) values(" + "'" + this.login + "','" + oenskeNavn + "','" + oenskeAntal + "','" + oenskeLink + "')";
+            String sql = "insert into Oenske(brugerlogin,navn,antal,link) values(" +"'" + login + "','" + oenskeNavn + "'," + String.valueOf(oenskeAntal) + ",'" + oenskeLink + "')";
             Statement statement = connection.createStatement();
             statement.execute(sql);
             statement.close();
@@ -89,26 +111,89 @@ public class DbSql {
         }
     }
 
-    public void udskrivOenskeliste(String brugerLogin) {
-        Bruger bruger = getBruger(brugerLogin);
+    public boolean checkLogin(String login, String password) throws SQLException {
         try {
-            String sql = "SELECT Oenske.navn, Oenske.antal, Oenske.link from Oenske where brugerlogin ='" + brugerLogin + "';";
+            String sql = "SELECT brugerlogin, password" + " from Bruger" + " WHERE brugerlogin =" + " '" + login + "'";
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            if (rs.next()) {
+                if (Objects.equals(rs.getString("brugerlogin"), login) && (Objects.equals(rs.getString("password"), password))) {
+                    System.out.println("login succesful");
+                    this.login = login;
+                    this.password = password;
+                    statement.close();
+                    return true;
+                }
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        statement.close();
+        connection.close();
+        return false;
+    }
+
+    public void fjernOenske(String oenskeNavn){
+        try {
+            String sql = "delete from Oenske WHERE Oenske.brugerlogin=" + "'" + login + "'" + "and Oenske.navn="+ "'" + oenskeNavn +"';";
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+            statement.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+
+    public ObservableList<Oenske> getOenskeliste() {
+        ObservableList<Oenske> oensker = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT Oenske.oenskeId, Oenske.navn, Oenske.antal, Oenske.link from Oenske where brugerlogin ='" + login + "';";
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 Oenske oenske = new Oenske();
+                oenske.setOenskeId(rs.getInt("oenskeId"));
                 oenske.setOenskeNavn(rs.getString("navn"));
                 oenske.setOenskeAntal(rs.getInt("antal"));
                 oenske.setOenskeLink(rs.getString("link"));
-                bruger.tilfoejoenske(oenske);
+                oensker.add(oenske);
             }
             statement.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        bruger.udskrivOenskeliste();
+        return oensker;
+    }
 
-
+    public void delOenskeListe(String deltMedBruger) {
+        ArrayList oenskeIdListe = new ArrayList();
+        try {
+            String sql = "SELECT Oenske.brugerlogin,Oenske.oenskeId from Oenske WHERE Oenske.brugerlogin = '" + login + "'";
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                int oenskeId = rs.getInt("oenskeId");
+                oenskeIdListe.add(oenskeId);
+            }
+            statement.execute(sql);
+            statement.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        for (int i = 0; i < oenskeIdListe.size(); i++) {
+            try {
+                String sql = "INSERT into oenskeDeltMed(oenskeEjer,oenskeId,deltMedBruger) VALUES(" + "'" + login + "'," + oenskeIdListe.get(i) + ",'" + deltMedBruger + "')";
+                Statement statement = connection.createStatement();
+                statement.execute(sql);
+                statement.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
     }
 
     public void udskrivEgenOenske(String brugerLogin) {

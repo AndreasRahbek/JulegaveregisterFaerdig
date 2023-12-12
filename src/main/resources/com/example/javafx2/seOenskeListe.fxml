@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #201;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx2.seOenskeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #201;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx2.seOenskeController">
    <top>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -55,6 +55,8 @@
                </font>
             </Label>
             <Button fx:id="delButton" layoutX="509.0" layoutY="24.0" mnemonicParsing="false" onAction="#delOenskeliste" text="Del" />
+            <Button fx:id="fjernButton" layoutX="194.0" layoutY="340.0" mnemonicParsing="false" onAction="#fjernOenskeKlik" text="Fjern ønske" />
+            <TextField fx:id="oenskeNavnTextFeild" layoutX="37.0" layoutY="340.0" promptText="Indtast ønskenavn" />
          </children>
       </AnchorPane>
    </top>
