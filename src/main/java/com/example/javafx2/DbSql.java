@@ -24,7 +24,7 @@ public class DbSql {
         connection = null;
         statement = null;
         try {
-            String url = "jdbc:sqlite:\\C:\\Users\\Andreas\\Documents\\1. semester\\Databaser\\DB\\JuleregisterDatabase.db";
+            String url = "jdbc:sqlite:\\C:\\Users\\andre\\Desktop\\Database\\JuleregisterDatabase.db";
             connection = DriverManager.getConnection(url);
 
         } catch (
@@ -33,22 +33,25 @@ public class DbSql {
         }
     }
 
-    public String opretBruger(String brugerlogin, String password, String fnavn, String enavn, String mobil, String email) {
-        String string = "Brugernavn eksistere allerede";
-        try {
-            String sql = "insert into Bruger(brugerlogin,password,fNavn,enavn,mobil,email) values(" + "'" + brugerlogin + "','" + password + "','" + fnavn + "','" + enavn + "','" + mobil + "','" + email + "')";
-            Statement statement = connection.createStatement();
-            statement.execute(sql);
-            statement.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return string = "Brugernavn eksistere allerede";
+    public int opretBruger(String brugerlogin, String password, String fnavn, String enavn, String mobil, String email) {
+        if(brugerlogin.isEmpty()||password.isEmpty()||fnavn.isEmpty()||enavn.isEmpty()||mobil.isEmpty()||email.isEmpty()){
+            return 1;
+        } else {
+            try {
+                String sql = "insert into Bruger(brugerlogin,password,fNavn,enavn,mobil,email) values(" + "'" + brugerlogin + "','" + password + "','" + fnavn + "','" + enavn + "','" + mobil + "','" + email + "')";
+                Statement statement = connection.createStatement();
+                statement.execute(sql);
+                statement.close();
+                return 2;
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                return 3;
+            }
         }
-        return string = "";
     }
 
 
-    public ObservableList<Oenske> seAndresOenskelister() {
+    public ObservableList<Oenske> getOenskeListeAlleDelte() {
         ObservableList<Oenske> oensker = FXCollections.observableArrayList();
         try {
             String sql = "SELECT OenskeDeltMed.oenskeEjer,OenskeDeltMed.oenskeId,OenskeDeltMed.deltMedBruger,Oenske.navn,oenske.antal,oenske.link,oenske.købt,oenske.købtAf from OenskeDeltMed INNER JOIN Oenske on OenskeDeltMed.oenskeId = Oenske.oenskeId";
@@ -72,11 +75,77 @@ public class DbSql {
                         }
                     });
                     oenske.setOenskeKoebtAf(rs.getString("købtAf"));
-
                     if (Objects.equals(oenske.getOenskeDeltMed(), login)) {
                         oensker.add(oenske);
                     }
+                }
+            }
+            statement.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return oensker;
+    }
 
+    public ObservableList<Oenske> getOenskeListeKoebte() {
+        ObservableList<Oenske> oensker = FXCollections.observableArrayList();
+        try {
+            String sql = "select * from Oenske WHERE Oenske.købtAf =" + "'" + login + "'";
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                {
+                    Oenske oenske = new Oenske();
+                    oenske.setOenskeEjer(rs.getString("brugerlogin"));
+                    oenske.setOenskeId(rs.getInt("oenskeId"));
+                    oenske.setOenskeDeltMed(login);
+                    oenske.setOenskeNavn(rs.getString("navn"));
+                    oenske.setOenskeAntal(rs.getInt("antal"));
+                    oenske.setOenskeLink(rs.getString("link"));
+                    oenske.setFjernKoebtButton(new Button("Fjern købt"));
+                    oenske.getFjernKoebtButton().setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent actionEvent) {
+                            oenske.setOenskeKoebtAf(null);
+                            fjernOenskeKoebtAf(oenske.getOenskeId());
+                        }
+                    });
+                    oenske.setOenskeKoebtAf(rs.getString("købtAf"));
+                    oensker.add(oenske);
+                }
+            }
+            statement.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return oensker;
+    }
+
+    public ObservableList<Oenske> getOenskeListeIkkeKoebte() {
+        ObservableList<Oenske> oensker = FXCollections.observableArrayList();
+        try {
+            String sql = "select * from Oenske inner join OenskeDeltMed on Oenske.oenskeId = OenskeDeltMed.oenskeId WHERE Oenske.købtAf is not" + "'" + login +"'" + "and OenskeDeltMed.deltMedBruger =" +"'" + login + "'";
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                {
+                    Oenske oenske = new Oenske();
+                    oenske.setOenskeEjer(rs.getString("brugerlogin"));
+                    oenske.setOenskeId(rs.getInt("oenskeId"));
+                    oenske.setOenskeDeltMed(login);
+                    oenske.setOenskeNavn(rs.getString("navn"));
+                    oenske.setOenskeAntal(rs.getInt("antal"));
+                    oenske.setOenskeLink(rs.getString("link"));
+                    oenske.setOenskeKoebtButton(new Button("Købt"));
+                    oenske.getOenskeKoebtButton().setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent actionEvent) {
+                            oenske.setOenskeKoebtAf(login);
+                            oenskeKoebtAf(login,oenske.getOenskeId());
+                        }
+                    });
+                    oenske.setOenskeKoebtAf(rs.getString("købtAf"));
+                    oensker.add(oenske);
                 }
             }
             statement.close();
@@ -96,10 +165,19 @@ public class DbSql {
             throwables.printStackTrace();
         }
     }
+    public void fjernOenskeKoebtAf(int oenskeId){
+        try {
+            String sql = "Update Oenske Set købtAf = null" + ", købt= 'Nej'"  + " WHERE oenskeId =" + oenskeId +";";
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+            statement.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
     public void opretOenske(String oenskeNavn, int oenskeAntal, String oenskeLink) throws SQLException {
-        String url = "jdbc:sqlite:\\C:\\Users\\Andreas\\Documents\\1. semester\\Databaser\\DB\\JuleregisterDatabase.db";
-        connection = DriverManager.getConnection(url);
         try {
             String sql = "insert into Oenske(brugerlogin,navn,antal,link) values(" +"'" + login + "','" + oenskeNavn + "'," + String.valueOf(oenskeAntal) + ",'" + oenskeLink + "')";
             Statement statement = connection.createStatement();
@@ -124,14 +202,14 @@ public class DbSql {
                     statement.close();
                     return true;
                 }
-
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-
+            this.login = login;
+            this.password = password;
+            statement.close();
+            return false;
         }
-        statement.close();
-        connection.close();
         return false;
     }
 
@@ -148,7 +226,7 @@ public class DbSql {
     }
 
 
-    public ObservableList<Oenske> getOenskeliste() {
+    public ObservableList<Oenske> getOenskelistePersonlig() {
         ObservableList<Oenske> oensker = FXCollections.observableArrayList();
         try {
             String sql = "SELECT Oenske.oenskeId, Oenske.navn, Oenske.antal, Oenske.link from Oenske where brugerlogin ='" + login + "';";
@@ -196,17 +274,8 @@ public class DbSql {
         }
     }
 
-    public void udskrivEgenOenske(String brugerLogin) {
-        try {
-            String sql = "select * from Oenske\n" + " where brugerlogin = 'brugernavn1'";
-            Statement statement = connection.createStatement();
-            statement.execute(sql);
-            statement.close();
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
+
 
     public Connection getConnection() {
         return connection;

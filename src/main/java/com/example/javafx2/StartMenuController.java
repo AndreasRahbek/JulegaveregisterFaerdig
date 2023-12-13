@@ -36,14 +36,15 @@ public class StartMenuController {
         m.changeScene("opretBruger.fxml");
     }
 
+
+
     public void userLogin(ActionEvent event) throws IOException, SQLException {
         Main m = new Main();
         if (brugerIdPanel.getText().isEmpty() && passwordPanel.getText().isEmpty()) {
             wrongLogin.setText("Indtast dit BrugerId og Password ");
-        } else {
-            if(db.checkLogin(brugerIdPanel.getText(),passwordPanel.getText())){
+        } else if(db.checkLogin(brugerIdPanel.getText(),passwordPanel.getText())){
                 m.changeScene("afterLogin.fxml");
-            } else wrongLogin.setText("Forkert login");
+        } else {wrongLogin.setText("Forkert login");
         }
     }
 }

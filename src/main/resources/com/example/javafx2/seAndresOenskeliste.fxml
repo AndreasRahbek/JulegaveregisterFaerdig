@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #201;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx2.andresOenskelisteController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #201;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx2.andresOenskelisteController">
    <children>
       <TableView fx:id="andreOenskeListe" layoutY="25.0" prefHeight="381.0" prefWidth="606.0" style="-fx-background-color: #201;">
         <columns>
@@ -18,5 +18,8 @@
         </columns>
       </TableView>
       <Button fx:id="tilbageButton" mnemonicParsing="false" onAction="#brugerTilbage" text="Tilbage" />
+      <Button fx:id="seKoebteButton" layoutX="119.0" mnemonicParsing="false" onAction="#udskrivOenskelisteKoebte" text="Se Købte" />
+      <Button fx:id="seAlleButton" layoutX="55.0" mnemonicParsing="false" onAction="#udskrivOenskelisteAlle" prefHeight="25.0" prefWidth="64.0" text="Se Alle" />
+      <Button fx:id="seIkkeKoebteButton" layoutX="179.0" mnemonicParsing="false" onAction="#udskrivOenskelisteIkkeKoebte" prefHeight="25.0" prefWidth="102.0" text="Se Ikke Købte" />
    </children>
 </AnchorPane>

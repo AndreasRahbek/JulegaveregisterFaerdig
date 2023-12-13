@@ -12,11 +12,20 @@ public class Oenske {
     private int oenskeAntal;
     private String oenskeLink;
     private Button oenskeKoebtButton;
+    private Button fjernKoebtButton;
     private String oenskeKoebt = "Nej";
 
     private String oenskeKoebtAf;
     private String oenskeDeltMed;
 
+
+    public Button getFjernKoebtButton() {
+        return fjernKoebtButton;
+    }
+
+    public void setFjernKoebtButton(Button fjernKoebtButton) {
+        this.fjernKoebtButton = fjernKoebtButton;
+    }
 
     public Button getOenskeKoebtButton() {
         return oenskeKoebtButton;

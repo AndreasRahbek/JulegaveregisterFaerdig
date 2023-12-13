@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -78,22 +79,24 @@ public class seOenskeController implements Initializable{
         oenskeColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeNavn"));
         antalColumn.setCellValueFactory(new PropertyValueFactory<Oenske, Integer>("oenskeAntal"));
         linkColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeLink"));
-        oenskeListe.setItems(db.getOenskeliste());
-
-
+        oenskeListe.setItems(db.getOenskelistePersonlig());
     }
 
     @FXML
-    private void tilfoejOenskeKlik(ActionEvent e) throws SQLException {
+    private void tilfoejOenskeKlik(ActionEvent e) throws SQLException{
         if (oenskeNavn.getText().isEmpty() || oenskeAntal.getText().isEmpty() || oenskeLink.getText().isEmpty()) {
             oenskeLabel.setText("Udfyld alle felter");
         } else {
-            db.opretOenske(oenskeNavn.getText(), Integer.parseInt(oenskeAntal.getText()), oenskeLink.getText());
-            oenskeLabel.setText("Ønske tilføjet");
-            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> {
-                oenskeLabel.setText(" ");
-            }));
-            timeline.play();
+            try {
+                db.opretOenske(oenskeNavn.getText(), Integer.parseInt(oenskeAntal.getText()), oenskeLink.getText());
+                oenskeLabel.setText("Ønske tilføjet");
+                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> {
+                    oenskeLabel.setText(" ");
+                }));
+                timeline.play();
+            } catch(RuntimeException a){
+                    oenskeLabel.setText("Antal skal være et tal!");
+            }
         }
     }
 
@@ -120,6 +123,7 @@ public class seOenskeController implements Initializable{
             oenskeLabel.setText("Du kan ikke dele med dig selv!");
         } else {
             db.delOenskeListe(delOenskeListeTextField.getText());
+            oenskeLabel.setText("Ønskeliste delt med " + "\"" + delOenskeListeTextField.getText() + "\"");
         }
     }
 
