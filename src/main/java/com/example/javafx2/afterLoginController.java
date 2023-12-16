@@ -26,7 +26,7 @@ public class afterLoginController {
         m.changeScene("seOenskeListe.fxml");
     }
     @FXML
-    private void andreOenskeListerButton(ActionEvent event) throws IOException {
+    private void andresOenskeLister(ActionEvent event) throws IOException {
         Main m = new Main();
         m.changeScene("seAndresOenskeliste.fxml");
     }

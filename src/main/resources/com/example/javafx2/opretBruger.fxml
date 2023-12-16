@@ -16,7 +16,7 @@
             <TextField fx:id="enavn" layoutX="14.0" layoutY="167.0" promptText="Indtast Efternavn" />
             <TextField fx:id="mobilNr" layoutX="14.0" layoutY="212.0" promptText="Indtast Mobil nr" />
             <TextField fx:id="email" layoutX="14.0" layoutY="250.0" promptText="Indtast Email" />
-            <Button fx:id="opretBrugerButton" layoutX="217.0" layoutY="155.0" mnemonicParsing="false" onAction="#opretbruger" text="Opret Bruger" />
+            <Button fx:id="opretBrugerButton" layoutX="217.0" layoutY="155.0" mnemonicParsing="false" onAction="#opretBruger" text="Opret Bruger" />
             <Label fx:id="brugerEksistere" alignment="CENTER" layoutX="-99.0" layoutY="318.0" prefHeight="35.0" prefWidth="316.0" textFill="#f23838">
                <font>
                   <Font size="24.0" />
@@ -54,6 +54,6 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Button fx:id="goBackButton" layoutX="16.0" layoutY="25.0" mnemonicParsing="false" onAction="#userGoBack" text="Tilbage" />
+      <Button fx:id="tilbageButton" layoutX="16.0" layoutY="25.0" mnemonicParsing="false" onAction="#brugerTilbage" text="Tilbage" />
    </children>
 </AnchorPane>

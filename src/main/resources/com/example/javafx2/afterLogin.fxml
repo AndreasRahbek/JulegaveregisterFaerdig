@@ -10,7 +10,7 @@
          <children>
             <Button fx:id="logUdButton" layoutX="246.0" layoutY="317.0" mnemonicParsing="false" onAction="#userLogOut" prefHeight="48.0" prefWidth="107.0" style="-fx-background-color: #f23838;" text="Log Ud" />
             <Button fx:id="seOenskeliste" layoutX="170.0" layoutY="194.0" mnemonicParsing="false" onAction="#seOenskeliste" text="Min Ønskeliste" />
-            <Button fx:id="andreOenskeLister" layoutX="333.0" layoutY="194.0" mnemonicParsing="false" onAction="#andreOenskeListerButton" text="Se andres ønskelister" />
+            <Button fx:id="andreOenskeLister" layoutX="333.0" layoutY="194.0" mnemonicParsing="false" onAction="#andresOenskeLister" text="Se andres ønskelister" />
          </children>
       </AnchorPane>
    </center>

@@ -28,14 +28,14 @@ public class opretBrugerController {
     @FXML
     private Button opretBrugerButton;
     @FXML
-    private Button goBackButton;
+    private Button tilbageButton;
     @FXML
     private Label brugerEksistere;
 
     public opretBrugerController() {
     }
 
-    public void opretbruger(ActionEvent event){
+    public void opretBruger(ActionEvent event){
         int tal = (db.opretBruger(brugernavn.getText(), password.getText(), fnavn.getText(), enavn.getText(), mobilNr.getText(), email.getText()));
             if(tal == 1) {
                 brugerEksistere.setText("Udfyld alle felter!");
@@ -46,7 +46,7 @@ public class opretBrugerController {
         }
     }
 
-    public void userGoBack(ActionEvent event) throws IOException {
+    public void brugerTilbage(ActionEvent event) throws IOException {
         Main m = new Main();
         m.changeScene("StartMenu.fxml");
     }

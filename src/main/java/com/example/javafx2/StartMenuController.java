@@ -38,7 +38,7 @@ public class StartMenuController {
 
 
 
-    public void userLogin(ActionEvent event) throws IOException, SQLException {
+    public void brugerLogin(ActionEvent event) throws IOException, SQLException {
         Main m = new Main();
         if (brugerIdPanel.getText().isEmpty() && passwordPanel.getText().isEmpty()) {
             wrongLogin.setText("Indtast dit BrugerId og Password ");
