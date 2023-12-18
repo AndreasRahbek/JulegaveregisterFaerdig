@@ -12,7 +12,7 @@
          <children>
             <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../img/Christmas_Christmas_tree_Balls_Snow_599743_600x400.jpg" />
+                  <Image url="@../../../../../img/Christmas_Christmas_tree_Balls_Snow_599743_600x400.jpg" />
                </image>
             </ImageView>
             <Button fx:id="logUdButton" mnemonicParsing="false" onAction="#userLogOut" prefHeight="48.0" prefWidth="107.0" style="-fx-background-color: #f23838;" text="Log Ud" />

@@ -14,7 +14,7 @@
          <children>
             <ImageView fitHeight="400.0" fitWidth="840.0" layoutX="-240.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../img/festive-christmas-scene-with-decor-in-snow-over-blurred-bokeh-background-and-copy-space-for-your-xmas-greetings-generative-ai-photo.jpg" />
+                  <Image url="@../../../../../img/festive-christmas-scene-with-decor-in-snow-over-blurred-bokeh-background-and-copy-space-for-your-xmas-greetings-generative-ai-photo.jpg" />
                </image>
             </ImageView>
             <TextField fx:id="brugernavn" layoutX="10.0" layoutY="85.0" promptText="Indtast Brugernavn" />
