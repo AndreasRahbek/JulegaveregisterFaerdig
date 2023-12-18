@@ -18,7 +18,7 @@
          <children>
             <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../img/MA-16.jpg" />
+                  <Image url="@../../../../../../img/MA-16.jpg" />
                </image>
             </ImageView>
             <Pane opacity="0.6" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" />
