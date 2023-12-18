@@ -5,34 +5,43 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #201;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx2.seOenskeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #201;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx2.seOenskeController">
    <top>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="oenskeNavn" layoutX="151.0" layoutY="128.0" promptText="Indtast ønskenavn" />
-            <Label alignment="CENTER" layoutX="22.0" layoutY="125.0" text="Ønske navn:" textFill="#f23838">
+            <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../img/MA-16.jpg" />
+               </image>
+            </ImageView>
+            <Pane opacity="0.6" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" />
+            <TextField fx:id="oenskeNavn" layoutX="136.0" layoutY="127.0" promptText="Indtast ønskenavn" />
+            <Label alignment="CENTER" layoutX="11.0" layoutY="125.0" text="Ønske navn:" textFill="#f23838">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="76.0" layoutY="174.0" text="Antal:" textFill="#f23838">
+            <Label layoutX="68.0" layoutY="174.0" text="Antal:" textFill="#f23838">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="oenskeAntal" layoutX="151.0" layoutY="176.0" promptText="Indtast antal" />
-            <Label layoutX="55.0" layoutY="225.0" text="Evt. Link:" textFill="#f23838">
+            <TextField fx:id="oenskeAntal" layoutX="136.0" layoutY="176.0" promptText="Indtast antal" />
+            <Label layoutX="42.0" layoutY="225.0" text="Evt. Link:" textFill="#f23838">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="oenskeLink" layoutX="151.0" layoutY="228.0" promptText="Indtast link" />
-            <Button fx:id="tilbage" layoutX="56.0" layoutY="57.0" mnemonicParsing="false" onAction="#brugerTilbage" text="Tilbage" />
-            <Button fx:id="tilfoejOenske" layoutX="179.0" layoutY="285.0" mnemonicParsing="false" onAction="#tilfoejOenskeKlik" text="Tilføj ønske" />
+            <TextField fx:id="oenskeLink" layoutX="136.0" layoutY="227.0" promptText="Indtast link" />
+            <Button fx:id="tilbage" mnemonicParsing="false" onAction="#brugerTilbage" style="-fx-background-color: #f23838;" text="Tilbage" />
+            <Button fx:id="tilfoejOenske" layoutX="173.0" layoutY="292.0" mnemonicParsing="false" onAction="#tilfoejOenskeKlik" style="-fx-background-color: #f23838;" text="Tilføj ønske" />
             <Label fx:id="oenskeLabel" alignment="CENTER" layoutX="273.0" layoutY="339.0" prefHeight="35.0" prefWidth="326.0" textFill="#e80a0a">
                <font>
                   <Font size="24.0" />
@@ -48,15 +57,15 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <TextField fx:id="delOenskeListeTextField" layoutX="351.0" layoutY="24.0" promptText="Indtast Brugernavn" />
-            <Label alignment="CENTER" layoutX="218.0" layoutY="21.0" text="Del ønskeliste:" textFill="#f23838">
+            <TextField fx:id="delOenskeListeTextField" layoutX="388.0" layoutY="23.0" promptText="Indtast Brugernavn" />
+            <Label alignment="CENTER" layoutX="237.0" layoutY="21.0" text="Del ønskeliste:" textFill="#f23838">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Button fx:id="delButton" layoutX="509.0" layoutY="24.0" mnemonicParsing="false" onAction="#delOenskeliste" text="Del" />
-            <Button fx:id="fjernButton" layoutX="194.0" layoutY="340.0" mnemonicParsing="false" onAction="#fjernOenskeKlik" text="Fjern ønske" />
-            <TextField fx:id="oenskeNavnTextFeild" layoutX="37.0" layoutY="340.0" promptText="Indtast ønskenavn" />
+            <Button fx:id="delButton" layoutX="552.0" layoutY="23.0" mnemonicParsing="false" onAction="#delOenskeliste" style="-fx-background-color: #f23838;" text="Del" />
+            <Button fx:id="fjernButton" layoutX="492.0" layoutY="352.0" mnemonicParsing="false" onAction="#fjernOenskeKlik" style="-fx-background-color: #f23838;" text="Fjern ønske" />
+            <TextField fx:id="oenskeNavnTextFeild" layoutX="304.0" layoutY="352.0" promptText="Indtast ønskenavn" />
          </children>
       </AnchorPane>
    </top>
