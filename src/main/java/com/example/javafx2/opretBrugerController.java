@@ -35,7 +35,8 @@ public class opretBrugerController {
     public opretBrugerController() {
     }
 
-    public void opretBruger(ActionEvent event){
+    @FXML
+    private void opretBruger(ActionEvent event){
         int tal = (db.opretBruger(brugernavn.getText(), password.getText(), fnavn.getText(), enavn.getText(), mobilNr.getText(), email.getText()));
             if(tal == 1) {
                 brugerEksistere.setText("Udfyld alle felter!");
@@ -46,7 +47,8 @@ public class opretBrugerController {
         }
     }
 
-    public void brugerTilbage(ActionEvent event) throws IOException {
+    @FXML
+    private void brugerTilbage(ActionEvent event) throws IOException {
         Main m = new Main();
         m.changeScene("StartMenu.fxml");
     }

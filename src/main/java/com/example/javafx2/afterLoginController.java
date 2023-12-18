@@ -16,12 +16,13 @@ public class afterLoginController {
     private Button andreOenskeLister;
 
 
-
-    public void userLogOut(ActionEvent event) throws IOException{
+    @FXML
+    private void userLogOut(ActionEvent event) throws IOException{
         Main m = new Main();
         m.changeScene("StartMenu.fxml");
     }
-    public void seOenskeliste(ActionEvent event) throws IOException {
+    @FXML
+    private void seOenskeliste(ActionEvent event) throws IOException {
         Main m = new Main();
         m.changeScene("seOenskeListe.fxml");
     }

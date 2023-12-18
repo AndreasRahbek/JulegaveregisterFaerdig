@@ -48,15 +48,10 @@ public class andresOenskelisteController implements Initializable {
 
     }
 
+    
 
-
-
-
-
-
-
-
-    public void udskrivOenskelisteAlle() {
+    @FXML
+    private void udskrivOenskelisteAlle() {
         modtagerColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeEjer"));
         oenskeColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeNavn"));
         antalColumn.setCellValueFactory(new PropertyValueFactory<Oenske, Integer>("oenskeAntal"));
@@ -67,7 +62,7 @@ public class andresOenskelisteController implements Initializable {
     }
 
     @FXML
-    public void udskrivOenskelisteKoebte(){
+    private void udskrivOenskelisteKoebte(){
         ObservableList<Oenske> oensker = FXCollections.observableArrayList();
         andreOenskeListe.setItems(oensker);
         modtagerColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeEjer"));
@@ -81,7 +76,7 @@ public class andresOenskelisteController implements Initializable {
     }
 
     @FXML
-    public void udskrivOenskelisteIkkeKoebte(){
+    private void udskrivOenskelisteIkkeKoebte(){
         ObservableList<Oenske> oensker = FXCollections.observableArrayList();
         andreOenskeListe.setItems(oensker);
         modtagerColumn.setCellValueFactory(new PropertyValueFactory<Oenske, String>("oenskeEjer"));
@@ -93,9 +88,6 @@ public class andresOenskelisteController implements Initializable {
         andreOenskeListe.setItems(db.getOenskeListeIkkeKoebte());
 
     }
-
-
-
 
 
     @FXML

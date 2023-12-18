@@ -30,15 +30,15 @@ public class StartMenuController {
     private PasswordField passwordPanel;
 
 
-
-    public void opretBruger(ActionEvent event) throws IOException {
+    @FXML
+    private void opretBruger(ActionEvent event) throws IOException {
         Main m = new Main();
         m.changeScene("opretBruger.fxml");
     }
 
 
-
-    public void brugerLogin(ActionEvent event) throws IOException, SQLException {
+    @FXML
+    private void brugerLogin(ActionEvent event) throws IOException, SQLException {
         Main m = new Main();
         if (brugerIdPanel.getText().isEmpty() && passwordPanel.getText().isEmpty()) {
             wrongLogin.setText("Indtast dit BrugerId og Password ");

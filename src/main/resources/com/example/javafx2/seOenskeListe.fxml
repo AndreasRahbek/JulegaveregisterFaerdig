@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #201;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx2.seOenskeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #201;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx2.seOenskeController">
    <top>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -21,7 +21,14 @@
                   <Image url="@../../../../../img/MA-16.jpg" />
                </image>
             </ImageView>
-            <Pane opacity="0.6" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" />
+            <Pane opacity="0.6" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <Label fx:id="oenskeLabel" alignment="CENTER" layoutX="14.0" layoutY="340.0" prefHeight="35.0" prefWidth="253.0" textFill="#e80a0a">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children></Pane>
             <TextField fx:id="oenskeNavn" layoutX="136.0" layoutY="127.0" promptText="Indtast ønskenavn" />
             <Label alignment="CENTER" layoutX="11.0" layoutY="125.0" text="Ønske navn:" textFill="#f23838">
                <font>
@@ -42,11 +49,6 @@
             <TextField fx:id="oenskeLink" layoutX="136.0" layoutY="227.0" promptText="Indtast link" />
             <Button fx:id="tilbage" mnemonicParsing="false" onAction="#brugerTilbage" style="-fx-background-color: #f23838;" text="Tilbage" />
             <Button fx:id="tilfoejOenske" layoutX="173.0" layoutY="292.0" mnemonicParsing="false" onAction="#tilfoejOenskeKlik" style="-fx-background-color: #f23838;" text="Tilføj ønske" />
-            <Label fx:id="oenskeLabel" alignment="CENTER" layoutX="273.0" layoutY="339.0" prefHeight="35.0" prefWidth="326.0" textFill="#e80a0a">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
             <TableView fx:id="oenskeListe" layoutX="304.0" layoutY="76.0" prefHeight="257.0" prefWidth="292.0">
               <columns>
                 <TableColumn fx:id="oenskeColumn" editable="false" prefWidth="97.0" text="Ønske" />
